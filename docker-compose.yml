@@ -24,7 +24,7 @@ services:
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - cadvisor
       - loki
@@ -63,13 +63,13 @@ services:
     ports:
       - 3100:3100
     volumes:
-      - ./loki-config.yaml:/etc/loki/local-config.yaml:ro
+      - ./configs/loki-config.yaml:/etc/loki/local-config.yaml:ro
 
   promtail:
     image: grafana/promtail:latest
     container_name: promtail
     volumes:
-      - ./promtail-config.yaml:/etc/promtail/config.yml:ro
+      - ./configs/promtail-config.yaml:/etc/promtail/config.yml:ro
       - /var/log:/var/log
     depends_on:
       - loki
